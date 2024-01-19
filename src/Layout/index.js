@@ -2,9 +2,12 @@ import React, { Fragment } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
-import { DeckCreate, DeckEdit, DeckList, DeckView } from "../Decks";
-import CardEdit from "../Cards/CardEdit";
-import CardCreate from "../Cards/CardCreate";
+import DeckCreateView from "../Decks/DeckCreateView";
+import DeckEditView from "../Decks/DeckEditView";
+import DeckListView from "../Decks/DeckListView";
+import DeckView from "../Decks/DeckView";
+import CardEditView from "../Cards/CardEditView";
+import CardCreateView from "../Cards/CardCreateView";
 import StudyView from "../Study/StudyView";
 
 function Layout() {
@@ -14,19 +17,19 @@ function Layout() {
       <div className="container">
         <Switch>
           <Route path="/decks/new">
-            <DeckCreate />
+            <DeckCreateView />
           </Route>
           <Route path="/decks/:deckId/cards/new">
-            <CardCreate />
+            <CardCreateView />
           </Route>
           <Route path="/decks/:deckId/cards/:cardId">
-            <CardEdit />
+            <CardEditView />
           </Route>
           <Route path="/decks/:deckId/study">
             <StudyView />
           </Route>
           <Route path="/decks/:deckId/edit">
-            <DeckEdit />
+            <DeckEditView />
           </Route>
           <Route path="/decks/:deckId">
             <DeckView />
@@ -35,7 +38,7 @@ function Layout() {
             <Redirect to="/" />
           </Route>
           <Route path="/" exact>
-            <DeckList />
+            <DeckListView />
           </Route>
           <Route>
             <NotFound />
