@@ -1,0 +1,65 @@
+label {
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+
+.border {
+  box-sizing: border-box;
+  padding: 1em;
+  border-style: ridge;
+  border-width: 3pt;
+}
+
+.flexRow,
+.flexRowStart,
+.flexRowEnd {
+  gap: 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flexRow {
+  justify-content: space-between;
+}
+
+.flexRowEnd {
+  justify-content: flex-start;
+}
+
+.flexRowEnd {
+  justify-content: flex-end;
+}
+
+.flexColumn {
+  gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.submitButton {
+  font-weight: bold;
+}
+
+.front {
+  box-sizing: border-box;
+  padding: 1em;
+  border-width: 3pt;
+  border-style: outset;
+}
+
+.back {
+  box-sizing: border-box;
+  padding: 1em;
+  border-width: 3pt;
+  border-style: inset;
+}
