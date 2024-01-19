@@ -1,10 +1,23 @@
 import React from "react";
 
+/**
+ * This component is the common form for creating a new card or editing an existing one.
+ * The caller is responsible for specifying the behavior and text of the
+ * @param {Object} param0
+ * @param {{id: number, deckId: number, front: string, back: string}} param0.card
+ * @param {string=} param0.cancelLabel
+ * @param {string=} param0.submitLabel
+ * @param {React.ChangeEventHandler<HTMLTextAreaElement>=} param0.handleChange
+ * @param {React.MouseEventHandler<HTMLButtonElement>=} param0.handleCancel
+ * @param {React.FormEventHandler<HTMLFormElement>=} param0.handleSubmit
+ */
 export default function CardForm({
   card,
   handleChange,
-  handleSubmit,
+  cancelLabel = "Cancel",
+  submitLabel = "Submit",
   handleCancel,
+  handleSubmit,
 }) {
   return (
     <form onSubmit={handleSubmit} className="flexColumn">
@@ -12,7 +25,6 @@ export default function CardForm({
       <textarea
         id="cardFront"
         name="front"
-        placeholder="Front of Card"
         onChange={handleChange}
         value={card.front}
       />
@@ -20,15 +32,12 @@ export default function CardForm({
       <textarea
         id="cardBack"
         name="back"
-        placeholder="Back of Card"
         onChange={handleChange}
         value={card.back}
       />
       <div className="flexRowStart">
-        <button onClick={handleCancel}>Cancel</button>
-        <button type="submit" className="submitButton">
-          Submit
-        </button>
+        {handleCancel && <button onClick={handleCancel}>{cancelLabel}</button>}
+        {handleSubmit && <button type="submit">{submitLabel}</button>}
       </div>
     </form>
   );

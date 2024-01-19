@@ -4,6 +4,11 @@ import { useHistory } from "react-router-dom";
 import Breadcrumbs from "../Layout/Breadcrumbs";
 import DeckForm from "./DeckForm";
 
+/**
+ * This component is the page for creating a new deck.
+ * Defined here: data, actions, breadcrumbs, heading.
+ * Defined in DeckForm: form, label, input, textarea, button.
+ */
 export default function DeckCreate() {
   const history = useHistory();
   const [deck, setDeck] = useState({ name: "", description: "", cards: [] });

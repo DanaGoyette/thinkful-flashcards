@@ -1,5 +1,12 @@
 import React from "react";
 
+/*
+ * This file holds a bunch of named button types,
+ * to make any future edits to the icons easier.
+ *
+ * For simplicity, the icons are created using emojis.
+ */
+
 const PLUS_SIGN = "\u2795";
 
 export function AddButton({ onClick, title = "Add" }) {
@@ -21,6 +28,7 @@ export function DeleteButton({ onClick, title = "" }) {
     return <button onClick={onClick}>🗑️</button>;
   }
 }
+
 export function EditButton({ onClick, title = "Edit" }) {
   return (
     <button onClick={onClick}>

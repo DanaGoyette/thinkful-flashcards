@@ -16,16 +16,17 @@ export default function StudyCard({ deck }) {
   };
 
   const handleNext = () => {
-    setFlipped(false);
     if (cardNum < cards.length - 1) {
       setCardNum(cardNum + 1);
+      setFlipped(false);
     } else {
-      if (
-        window.confirm(
-          "Restart cards?\r\n\r\nClick Cancel to return to the home page.",
-        )
-      ) {
+      const prompt = [
+        "Restart cards?",
+        "Click Cancel to return to the home page.",
+      ];
+      if (window.confirm(prompt.join("\r\n\r\n"))) {
         setCardNum(0);
+        setFlipped(false);
       } else {
         history.push("/");
       }
@@ -36,20 +37,17 @@ export default function StudyCard({ deck }) {
     setFlipped((val) => !val);
   };
 
-  if (!cards) {
-    return null;
-  }
-
-  if (cards.length < 3) {
+  if (!cards || cards.length < 3) {
+    const cardCount = cards ? cards.length : 0;
+    const cardCountStr =
+      cardCount === 1
+        ? `There is 1 card in this deck.`
+        : `There are ${cardCount} cards in this deck.`;
     return (
       <div className="border">
         <h3>Not enough cards.</h3>
         <span>You need at least 3 cards to study.</span>
-        <span>
-          {cards.length === 1
-            ? `There is 1 card in this deck.`
-            : `There are ${cards.length} cards in this deck.`}
-        </span>
+        <span>{cardCountStr}</span>
         <AddButton title="Add Card" onClick={handleAddCard} />
       </div>
     );

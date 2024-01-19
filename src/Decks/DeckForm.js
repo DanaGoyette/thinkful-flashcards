@@ -1,5 +1,15 @@
 import React from "react";
 
+/**
+ * This component is the shared form for creating a new deck or editing an existing one.
+ * The caller is responsible for specifying the behaviors of the buttons.
+ * @param {Object} param0
+ * @param {{id: number, name: string, description: string}} param0.deck
+ * @param {React.ChangeEventHandler<HTMLInputElement|HTMLTextAreaElement=} param0.handleChange
+ * @param {React.FormEventHandler<HTMLFormElement>=} param0.handleSubmit
+ * @param {React.MouseEventHandler<HTMLButtonElement>=} param0.handleCancel
+ * @returns
+ */
 export default function DeckForm({
   deck,
   handleChange,
@@ -12,7 +22,6 @@ export default function DeckForm({
       <input
         id="deckName"
         name="name"
-        placeholder="Title of Deck"
         onChange={handleChange}
         value={deck.name}
       />
@@ -20,7 +29,6 @@ export default function DeckForm({
       <textarea
         id="deckDescription"
         name="description"
-        placeholder="Describe the topic of the deck"
         onChange={handleChange}
         value={deck.description}
       />

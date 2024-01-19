@@ -3,6 +3,13 @@ import { useHistory } from "react-router-dom";
 import { deleteCard } from "../utils/api";
 import { DeleteButton, EditButton } from "../Layout/Buttons";
 
+/**
+ * This component shows the common information for a card, including
+ * buttons to edit or delete the card.
+ * @param {Object} param0
+ * @param {{id: number, deckId: number, front: string, back: string}} param0.card
+ * @param {React.MouseEventHandler<HTMLButtonElement>} param0.onDelete
+ */
 export default function CardInfo({ card, onDelete }) {
   const history = useHistory();
   const handleEdit = () => {
@@ -10,9 +17,8 @@ export default function CardInfo({ card, onDelete }) {
   };
 
   const handleDelete = () => {
-    if (
-      window.confirm("Delete this card?\n\nYou will not be able to recover it.")
-    ) {
+    const prompt = ["Delete this card?", "You will not be able to recover it."];
+    if (window.confirm(prompt.join("\r\n\r\n"))) {
       deleteCard(card.id);
       if (onDelete) onDelete();
     }

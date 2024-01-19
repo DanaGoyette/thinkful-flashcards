@@ -7,12 +7,17 @@ import DeckInfo from "./DeckInfo";
 import CardInfo from "../Cards/CardInfo";
 import Breadcrumbs from "../Layout/Breadcrumbs";
 
+/**
+ * This component is used after clicking selecting "View" on a given deck in the DeckList.
+ */
 export default function DeckView() {
-  const { deckId } = useParams();
   const history = useHistory();
-  const [deck, setDeck] = useState({});
+  const { deckId } = useParams();
+
+  const [deck, setDeck] = useState({ id: deckId });
   const [err, setErr] = useState(null);
-  // increment this to force a refresh
+
+  // This 'refresh' variable is a simple way to force a refresh afer deleting a card.
   const [refresh, setRefresh] = useState(1);
 
   useEffect(() => {
@@ -24,12 +29,14 @@ export default function DeckView() {
   }, [deckId, refresh]);
 
   const onDeleteDeck = () => history.replace("/");
-  const onDeleteCard = () => setRefresh((num) => num + 1);
+  const onDeleteCard = () => setRefresh((num) => -num);
 
   if (err) {
+    const title = deck.name || `Deck ${deckId}`;
     return (
       <div className="flexColumn">
-        <h2>{`Deck ${deckId}`}</h2>
+        <Breadcrumbs path={title} />
+        <h2>{title}</h2>
         <h3>{err}</h3>
       </div>
     );
@@ -37,7 +44,7 @@ export default function DeckView() {
 
   return (
     <div className="flexColumn">
-      <Breadcrumbs path={`Deck ${deck.name}`} />
+      <Breadcrumbs path={deck.name} />
       <DeckInfo
         deck={deck}
         showEdit

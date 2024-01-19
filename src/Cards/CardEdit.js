@@ -4,9 +4,18 @@ import { readCard, readDeck, updateCard } from "../utils/api";
 import CardForm from "./CardForm";
 import Breadcrumbs from "../Layout/Breadcrumbs";
 
+// non-breaking space to preserve the height while text hasn't loaded
+const NBSP = "\u00A0";
+
+/**
+ * This component is used to edit an existing card on a deck.
+ * Defined here: data, actions, breadcrumbs, heading.
+ * Defined in CardForm: form, label, input, textarea, button.
+ */
 export default function CardEdit() {
-  const { deckId, cardId } = useParams();
   const history = useHistory();
+  const { deckId, cardId } = useParams();
+  const location = `/decks/${deckId}`;
   const [deck, setDeck] = useState({ id: deckId });
   const [card, setCard] = useState({ id: cardId, deckId, front: "", back: "" });
   const [err, setErr] = useState("");
@@ -45,31 +54,31 @@ export default function CardEdit() {
   };
 
   const handleCancel = () => {
-    history.back();
+    history.goBack();
   };
 
   if (err) {
+    const title = `Deck ${deckId}`;
     return (
       <div className="flexColumn">
-        <h2>Edit Card</h2>
+        <Breadcrumbs path={[{ title, location }, `Edit Card ${cardId}`]} />
+        <h2>{`Editing card ${cardId}`}</h2>
         <h3>{err}</h3>
       </div>
     );
   }
 
+  const title = deck.name;
   return (
     <div className="flexColumn">
-      <Breadcrumbs
-        path={[
-          { title: deck.name || deckId, location: `/decks/${deckId}` },
-          `Edit card ${cardId}`,
-        ]}
-      />
+      <Breadcrumbs path={[{ title, location }, `Edit Card ${cardId}`]} />
+      <h2>{title ? `${title}: Edit Card` : NBSP}</h2>
       <CardForm
         card={card}
         handleChange={handleChange}
         handleCancel={handleCancel}
         handleSubmit={handleSubmit}
+        submitLabel="Submit"
       />
     </div>
   );

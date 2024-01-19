@@ -5,6 +5,11 @@ import { useHistory } from "react-router-dom";
 import Breadcrumbs from "../Layout/Breadcrumbs";
 import DeckForm from "./DeckForm";
 
+/**
+ * This component is the page for editing an existing deck.
+ * Defined here: data, actions, breadcrumbs, heading.
+ * Defined in DeckForm: form, label, input, textarea, button.
+ */
 export default function DeckEdit() {
   const { deckId } = useParams();
   const history = useHistory();
@@ -26,6 +31,7 @@ export default function DeckEdit() {
   const handleChange = (event) => {
     setDeck({
       ...deck,
+      // Update the field corresponding to the input/textarea that changed.
       [event.target.name]: event.target.value,
     });
   };
@@ -42,9 +48,10 @@ export default function DeckEdit() {
   };
 
   if (err) {
+    // If the user navigates to an invalid deck, show breadcrumbs and an error message instead of breaking.
     return (
       <div className="flexColumn">
-        <Breadcrumbs path={`Deck ${deck.name}`} />
+        <Breadcrumbs path={`Deck ${deckId}`} />
         <h2>{`Editing Deck ${deckId}`}</h2>
         <h3>{err}</h3>
       </div>
@@ -53,7 +60,7 @@ export default function DeckEdit() {
 
   return (
     <div className="flexColumn">
-      <Breadcrumbs path={`Deck ${deck.name}`} />
+      <Breadcrumbs path={deck.name} />
       <h2>Edit Deck</h2>
       <DeckForm
         deck={deck}
